@@ -30,19 +30,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">SB Admin</a>
+          <a class="navbar-brand" href="index.php">Tugas Kelompok 4</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="pembelian.html"><i class="fa fa-bar-chart-o"></i> Pembelian</a></li>
-            <li><a href="penjualan.html"><i class="fa fa-table"></i> Penjualan</a></li>
-            <li><a href="pelanggan.html"><i class="fa fa-edit"></i> Pelanggan</a></li>
-            <li><a href="supplier.html"><i class="fa fa-font"></i> Supplier</a></li>
-            <li><a href="barang.html"><i class="fa fa-desktop"></i> Barang</a></li>
-            <li><a href="pengguna.html"><i class="fa fa-wrench"></i> Pengguna</a></li>
+            <li class="active"><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="pembelian.php"><i class="fa fa-bar-chart-o"></i> Pembelian</a></li>
+            <li><a href="penjualan.php"><i class="fa fa-table"></i> Penjualan</a></li>
+            <li><a href="pelanggan.php"><i class="fa fa-edit"></i> Pelanggan</a></li>
+            <li><a href="supplier.php"><i class="fa fa-font"></i> Supplier</a></li>
+            <li><a href="barang.php"><i class="fa fa-desktop"></i> Barang</a></li>
+            <li><a href="pengguna.php"><i class="fa fa-wrench"></i> Pengguna</a></li>
         </div><!-- /.navbar-collapse -->
       </nav>
 
