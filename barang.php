@@ -1,6 +1,7 @@
 <?php
 include "config.php";
 ?>
+
 <!DOCTYPE html>
 
 <?php
@@ -70,7 +71,8 @@ $result = $conn->query($sql);
         <div class="col-lg-6">
           <h2>Data Pelanggan</h2>
           <div class="table-responsive">
-            <table class="table table-bordered table-hover tablesorter">
+            <button type="button" class="btn btn-default" id="btnTambahData">Tambah Data Baru</button>
+            <table class="table table-bordered table-hover tablesorter" id="tableDataPelanggan">
               <thead>
                 <tr>
                   <th class="text-center">Id Pelanggan</th>
@@ -92,8 +94,7 @@ $result = $conn->query($sql);
                     echo "<td>" . $row["AlamatPelanggan"] . "</td>";
                     echo "<td>" . $row["NoTelpPelanggan"] . "</td>";
                     echo "<td>" . $row["EmailPelanggan"] . "</td>";
-                    // echo "<td>" . $row["IdPenjualan"] . "</td>";
-                
+
                     // Add Edit and Delete buttons
                     echo "<td><a href='edit_pelanggan.php?id=" . $row["IdPelanggan"] . "' class='btn btn-warning btn-sm'>Edit</a></td>";
                     echo "<td><a href='function.php?id=" . $row["IdPelanggan"] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this record?\");'>Delete</a></td>";
@@ -107,32 +108,64 @@ $result = $conn->query($sql);
               </tbody>
             </table>
           </div>
+        
+
+        <div class="col-lg-6">
+          <!-- Formulir untuk Tambah Data -->
+          <form role="form" id="formTambahData" style="display: none;">
+            <div class="form-group">
+              <label>Id Pelanggan</label>
+              <input class="form-control" placeholder="Enter Id Pelanggan">
+            </div>
+            <div class="form-group">
+              <label>Nama Pelanggan</label>
+              <input class="form-control" placeholder="Enter Nama Pelanggan">
+            </div>
+            <div class="form-group">
+              <label>Alamat</label>
+              <input class="form-control" placeholder="Enter Alamat">
+            </div>
+            <div class="form-group">
+              <label>No Telp</label>
+              <input class="form-control" placeholder="Enter No Telp">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input class="form-control" placeholder="Enter Email">
+            </div>
+            <button type="submit" class="btn btn-default">Submit Button</button>
+            <button type="reset" class="btn btn-default" onclick="hideForm()">Cancel</button>
+          </form>
         </div>
+      </div><!-- /.row -->
 
-        <div class="row">
-          <div class="col-lg-6">
+    </div><!-- /#page-wrapper -->
+    </div>
 
-            <form role="form">
-              <div class="form-group">
-                <label>Text Input with Placeholder</label>
-                <input class="form-control" placeholder="Enter text">
-              </div>
+  </div><!-- /#wrapper -->
 
-              <button type="submit" class="btn btn-default">Submit Button</button>
-              <button type="reset" class="btn btn-default">Reset Button</button>
+  <!-- JavaScript -->
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.js"></script>
 
-            </form>
+  <script>
+    // Fungsi untuk menampilkan formulir
+    function showForm() {
+      document.getElementById("formTambahData").style.display = "block";
+      document.getElementById("tableDataPelanggan").style.display = "none";
+      document.getElementById("btnTambahData").style.visibility = "hidden";
+    }
 
-          </div>
-        </div><!-- /.row -->
+    // Fungsi untuk menyembunyikan formulir dan menampilkan kembali data grid
+    function hideForm() {
+      document.getElementById("formTambahData").style.display = "none";
+      document.getElementById("tableDataPelanggan").style.display = "table"; // Menampilkan kembali data grid
+      document.getElementById("btnTambahData").style.visibility = "visible";
+    }
 
-      </div><!-- /#page-wrapper -->
-
-    </div><!-- /#wrapper -->
-
-    <!-- JavaScript -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
+    // Menambahkan event listener untuk tombol "Tambah Data Baru"
+    document.getElementById("btnTambahData").addEventListener("click", showForm);
+  </script>
 
 </body>
 
