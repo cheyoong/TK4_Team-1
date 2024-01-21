@@ -1,14 +1,9 @@
 <?php
 include "config.php";
+require_once 'barang_controller.php';
 ?>
 
 <!DOCTYPE html>
-
-<?php
-$sql = "SELECT * FROM pelanggan";
-$result = $conn->query($sql);
-?>
-
 <html lang="en">
 
 <head>
@@ -69,35 +64,45 @@ $result = $conn->query($sql);
         </div><!-- /.row -->
 
         <div class="col-lg-6">
-          <h2>Data Pelanggan</h2>
+          <h2>Data Barang</h2>
           <div class="table-responsive">
             <button type="button" class="btn btn-default" id="btnTambahData">Tambah Data Baru</button>
             <table class="table table-bordered table-hover tablesorter" id="tableDataPelanggan">
               <thead>
                 <tr>
-                  <th class="text-center">Id Pelanggan</th>
-                  <th class="text-center">Nama Pelanggan</th>
-                  <th class="text-center">Alamat</th>
-                  <th class="text-center">No Telp</th>
-                  <th class="text-center">Email</th>
-                  <th class="text-center">Aksi</th>
+                  <th class="text-center">Id Barang</th>
+                  <th class="text-center">Nama Barang</th>
+                  <th class="text-center">Keterangan</th>
+                  <th class="text-center">Satuan</th>
+                  <th class="text-center">Id Pengguna</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                // Loop through the database results and populate the table rows
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
+                // Panggil fungsi get_data dari barang_controller.php
+                $barangData = get_data_barang();
+                // $barangData = mysqli_fetch_all($barangData, MYSQLI_ASSOC);
+                
+                // Loop through the data and populate the table rows
+                if ($barangData->num_rows > 0) {
+                  while ($row = $barangData->fetch_assoc()) {
                     echo "<tr>";
-                    echo "<td>" . $row["IdPelanggan"] . "</td>";
-                    echo "<td>" . $row["NamaPelanggan"] . "</td>";
-                    echo "<td>" . $row["AlamatPelanggan"] . "</td>";
-                    echo "<td>" . $row["NoTelpPelanggan"] . "</td>";
-                    echo "<td>" . $row["EmailPelanggan"] . "</td>";
-
+                    // Tampilkan data sesuai kolom
+                    echo "<td>" . $row["idbarang"] . "</td>";
+                    echo "<td>" . $row["namabarang"] . "</td>";
+                    echo "<td>" . $row["keterangan"] . "</td>";
+                    echo "<td>" . $row["satuan"] . "</td>";
+                    echo "<td>" . $row["idpengguna"] . "</td>";
+                    // ...
+                    // $deleteData = delete_data_pengguna();
                     // Add Edit and Delete buttons
-                    echo "<td><a href='edit_pelanggan.php?id=" . $row["IdPelanggan"] . "' class='btn btn-warning btn-sm'>Edit</a></td>";
-                    echo "<td><a href='function.php?id=" . $row["IdPelanggan"] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this record?\");'>Delete</a></td>";
+                    echo "<td><a class='btn btn-warning btn-sm' onclick='showEditForm(" . $row["idbarang"] . ")'>Edit</a></td>";
+                    // echo "<td><a class='btn btn-warning btn-sm'>Edit</a></td>";
+                    echo "<td><a href='barang_controller.php?delete_id=" . $row["idbarang"] . "' class='btn btn-danger btn-sm' name='delete' onclick='return confirm(\"Are you sure you want to delete this record?\");'>Delete</a></td>";
+                    // ...
+                    // echo "<td><a href='pengguna_controller.php?delete_id=" . $row["idpengguna"] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this record?\");'>Delete</a></td>";
+                    // ...
+                
 
                     echo "</tr>";
                   }
@@ -108,38 +113,63 @@ $result = $conn->query($sql);
               </tbody>
             </table>
           </div>
-        
 
-        <div class="col-lg-6">
-          <!-- Formulir untuk Tambah Data -->
-          <form role="form" id="formTambahData" style="display: none;">
+          <form role="form" id="formEditData" method="POST" action="barang_controller.php">
             <div class="form-group">
-              <label>Id Pelanggan</label>
-              <input class="form-control" placeholder="Enter Id Pelanggan">
+              <label>Id Barang</label>
+              <input class="form-control" name="idbarang" value="<?php echo $user_data['idbarang']; ?>" readonly>
             </div>
             <div class="form-group">
-              <label>Nama Pelanggan</label>
-              <input class="form-control" placeholder="Enter Nama Pelanggan">
+              <label>Nama Barang</label>
+              <input class="form-control" name="namabarang" value="<?php echo $user_data['namabarang']; ?>">
             </div>
             <div class="form-group">
-              <label>Alamat</label>
-              <input class="form-control" placeholder="Enter Alamat">
+              <label>Keterangan</label>
+              <input class="form-control" name="keterangan" value="<?php echo $user_data['keterangan']; ?>">
             </div>
             <div class="form-group">
-              <label>No Telp</label>
-              <input class="form-control" placeholder="Enter No Telp">
+              <label>Satuan</label>
+              <input class="form-control" name="satuan" value="<?php echo $user_data['satuan']; ?>">
             </div>
             <div class="form-group">
-              <label>Email</label>
-              <input class="form-control" placeholder="Enter Email">
+              <label>Id Pengguna</label>
+              <input class="form-control" name="idpengguna" value="<?php echo $user_data['idpengguna']; ?>">
             </div>
-            <button type="submit" class="btn btn-default">Submit Button</button>
-            <button type="reset" class="btn btn-default" onclick="hideForm()">Cancel</button>
+            <!-- Add other form fields with their corresponding values -->
+            <button type="submit" class="btn btn-default" name="update">Update</button>
+            <button type="button" class="btn btn-default" name="cancel" onclick="hideEditForm()">Cancel</button>
           </form>
-        </div>
-      </div><!-- /.row -->
 
-    </div><!-- /#page-wrapper -->
+          <div class="col-lg-6">
+            <!-- Formulir untuk Tambah Data -->
+            <form role="form" id="formTambahData" style="display: none;" method="POST" action="barang_controller.php">
+              <div class="form-group">
+                <label>Id Barang</label>
+                <input class="form-control" name="idbarang">
+              </div>
+              <div class="form-group">
+                <label>Nama Barang</label>
+                <input class="form-control" name="namabarang">
+              </div>
+              <div class="form-group">
+                <label>Keterangan</label>
+                <input class="form-control" name="keterangan">
+              </div>
+              <div class="form-group">
+                <label>Satuan</label>
+                <input class="form-control" name="satuan">
+              </div>
+              <div class="form-group">
+                <label>Id Pengguna</label>
+                <input class="form-control" name="idpengguna">
+              </div>
+              <button type="submit" class="btn btn-default" name="submit">Submit</button>
+              <button type="reset" class="btn btn-default" onclick="hideForm()">Cancel</button>
+            </form>
+          </div>
+        </div><!-- /.row -->
+
+      </div><!-- /#page-wrapper -->
     </div>
 
   </div><!-- /#wrapper -->
@@ -151,6 +181,7 @@ $result = $conn->query($sql);
   <script>
     // Fungsi untuk menampilkan formulir
     function showForm() {
+      document.getElementById("formEditData").style.display = "none";
       document.getElementById("formTambahData").style.display = "block";
       document.getElementById("tableDataPelanggan").style.display = "none";
       document.getElementById("btnTambahData").style.visibility = "hidden";
@@ -158,6 +189,7 @@ $result = $conn->query($sql);
 
     // Fungsi untuk menyembunyikan formulir dan menampilkan kembali data grid
     function hideForm() {
+      document.getElementById("formEditData").style.display = "none";
       document.getElementById("formTambahData").style.display = "none";
       document.getElementById("tableDataPelanggan").style.display = "table"; // Menampilkan kembali data grid
       document.getElementById("btnTambahData").style.visibility = "visible";
@@ -165,8 +197,64 @@ $result = $conn->query($sql);
 
     // Menambahkan event listener untuk tombol "Tambah Data Baru"
     document.getElementById("btnTambahData").addEventListener("click", showForm);
-  </script>
+    // Fungsi untuk menampilkan formulir Edit
+    function showEditForm(userId) {
+      // Use AJAX to fetch user data by ID
+      $.ajax({
+        type: 'GET',
+        url: 'barang_controller.php',
+        data: { get_user_by_id: userId },
+        dataType: 'json',
+        success: function (response) {
+          if (response.success) {
+            // Populate the form fields with user data
+            document.getElementById("formEditData").style.display = "block";
+            document.getElementById("tableDataPelanggan").style.display = "none";
+            document.getElementById("btnTambahData").style.visibility = "hidden";
 
+            // Populate the form fields with user data
+            document.getElementById("formEditData").elements["idbarang"].value = response.data.idbarang;
+            document.getElementById("formEditData").elements["namabarang"].value = response.data.namabarang;
+            document.getElementById("formEditData").elements["keterangan"].value = response.data.keterangan;
+            document.getElementById("formEditData").elements["satuan"].value = response.data.satuan;
+            document.getElementById("formEditData").elements["idpengguna"].value = response.data.idpengguna;
+            // Add event listener for the "Cancel" button in the edit form
+            document.getElementById("formEditData").elements["cancel"].addEventListener("click", function () {
+              hideEditForm();
+            });
+          } else {
+            // alert('Failed to fetch user data.');
+          }
+        },
+        error: function () {
+          alert('Error in AJAX request.');
+        }
+      });
+    }
+
+    // Fungsi untuk menyembunyikan formulir Edit dan menampilkan kembali data grid
+    function hideEditForm() {
+      document.getElementById("formTambahData").style.display = "none";
+      document.getElementById("formEditData").style.display = "none";
+      document.getElementById("tableDataPelanggan").style.display = "table"; // Menampilkan kembali data grid
+      document.getElementById("btnTambahData").style.visibility = "visible";
+    }
+
+    function hideEditFormOnLoad() {
+      document.getElementById("formTambahData").style.display = "none";
+      document.getElementById("formEditData").style.display = "none";
+      document.getElementById("tableDataPelanggan").style.display = "table"; // Menampilkan kembali data grid
+      document.getElementById("btnTambahData").style.visibility = "visible";
+    }
+    window.onload = hideEditFormOnLoad;
+
+
+    // Menambahkan event listener untuk tombol "Tambah Data Baru"
+    document.getElementById("btnTambahData").addEventListener("click", function () {
+      showEditForm(0); // Pass 0 or any other appropriate value as the user ID for a new entry
+    });
+
+  </script>
 </body>
 
 </html>
