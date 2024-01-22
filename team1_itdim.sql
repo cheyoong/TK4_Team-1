@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jan 2024 pada 18.28
+-- Waktu pembuatan: 22 Jan 2024 pada 04.15
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -35,6 +35,14 @@ CREATE TABLE `barang` (
   `idpengguna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `barang`
+--
+
+INSERT INTO `barang` (`idbarang`, `namabarang`, `keterangan`, `satuan`, `idpengguna`) VALUES
+(1, 'HP', 'Barang Elektronik', 3000000, 1),
+(2, 'TV', 'Barang Elektronik', 8000000, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +54,15 @@ CREATE TABLE `hakakses` (
   `namaakses` varchar(255) NOT NULL,
   `keterangan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `hakakses`
+--
+
+INSERT INTO `hakakses` (`idakses`, `namaakses`, `keterangan`) VALUES
+(1, 'Budi', 'Admin01'),
+(2, 'Sari', 'Admin02'),
+(3, 'Riri', 'Finance');
 
 -- --------------------------------------------------------
 
@@ -62,6 +79,13 @@ CREATE TABLE `pelanggan` (
   `idpenjualan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`idpelanggan`, `namapelanggan`, `alamatpelanggan`, `notelppelanggan`, `emailpelanggan`, `idpenjualan`) VALUES
+(1, 'Sasi', 'Bandung', '0862-1987-0987', 'sasi@gmail.com', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -74,6 +98,13 @@ CREATE TABLE `pembelian` (
   `hargabeli` int(11) NOT NULL,
   `idbarang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pembelian`
+--
+
+INSERT INTO `pembelian` (`idpembelian`, `jumlahpembelian`, `hargabeli`, `idbarang`) VALUES
+(1, 10, 50000000, 1);
 
 -- --------------------------------------------------------
 
@@ -92,6 +123,15 @@ CREATE TABLE `pengguna` (
   `idakses` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `pengguna`
+--
+
+INSERT INTO `pengguna` (`idpengguna`, `namapengguna`, `password`, `namadepan`, `namabelakang`, `nohp`, `alamat`, `idakses`) VALUES
+(1, 'Admin01', '12345', 'Admin', '01', 2147483647, 'Jakarta', 1),
+(2, 'Admin02', '12345', 'Admin', '02', 2147483647, 'Jakarta', 2),
+(3, 'Finance', '12345', 'Finance', '', 2147483647, 'Jakarta', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -104,6 +144,13 @@ CREATE TABLE `penjualan` (
   `hargajual` int(11) NOT NULL,
   `idbarang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `penjualan`
+--
+
+INSERT INTO `penjualan` (`idpenjualan`, `jumlahpenjualan`, `hargajual`, `idbarang`) VALUES
+(1, 5, 15000000, 1);
 
 -- --------------------------------------------------------
 
@@ -119,6 +166,13 @@ CREATE TABLE `supplier` (
   `emailsupplier` varchar(255) NOT NULL,
   `idbarang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `supplier`
+--
+
+INSERT INTO `supplier` (`idsupplier`, `namasupplier`, `alamatsupplier`, `notelpsupplier`, `emailsupplier`, `idbarang`) VALUES
+(1, 'CV Intan', 'Tangerang', '0411-0879', 'intan@gmail.com', 1);
 
 --
 -- Indexes for dumped tables
