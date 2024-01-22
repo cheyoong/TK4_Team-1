@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tugas Kelompok 4</title>
+    <title>Tugas Kelompok 1</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Tugas Kelompok 4</a>
+          <a class="navbar-brand" href="index.php">Tugas Kelompok 1</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,13 +52,13 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <h1>Dashboard <small>Statistics Overview</small></h1>
+            <h1>Dashboard</h1>
             <ol class="breadcrumb">
-              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+              <li class="active"><i class="fa fa-dashboard"></i>Introduction to Data & Information Management</li>
             </ol>
             <div class="alert alert-success alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              Welcome to SB Admin by <a class="alert-link" href="http://startbootstrap.com">Start Bootstrap</a>! Feel free to use this template for your admin needs! We are using a few different plugins to handle the dynamic tables and charts, so make sure you check out the necessary documentation links provided.
+              Tugas Kelompok Ke-4 <a class="alert-link" href="http://startbootstrap.com">TEAM 1</a>! Project Website yang dibuat berdasarkan Studi Case pada Tugas yang sudah.
             </div>
           </div>
         </div><!-- /.row -->
@@ -178,7 +178,7 @@
           <div class="col-lg-12">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Traffic Statistics: October 1, 2013 - October 31, 2013</h3>
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Traffic Statistics: Januari 1, 2024 - Januari 31, 2024</h3>
               </div>
               <div class="panel-body">
                 <div id="morris-chart-area"></div>
@@ -191,7 +191,7 @@
           <div class="col-lg-4">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Traffic Sources: October 1, 2013 - October 31, 2013</h3>
+                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Traffic Sources: Januari 1, 2024 - Januari 31, 2024</h3>
               </div>
               <div class="panel-body">
                 <div id="morris-chart-donut"></div>
